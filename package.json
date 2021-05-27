@@ -1,0 +1,23 @@
+{
+  "name": "ugarkanoid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "python -m http.server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramongarver/UGaRkanoid.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ramongarver/UGaRkanoid/issues"
+  },
+  "homepage": "https://github.com/ramongarver/UGaRkanoid#readme"
+}
