@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/ramongarver/UGaRkanoid/issues"
   },
-  "homepage": "https://github.com/ramongarver/UGaRkanoid#readme"
+  "homepage": "https://github.com/ramongarver/UGaRkanoid#readme",
+  "devDependencies": {
+    "@types/three": "^0.129.1",
+    "three": "^0.129.0"
+  }
 }
