@@ -41,13 +41,16 @@ class Ball extends THREE.Object3D {
   checkCollisionBorder(camera) {
     const distanceLeft = this.position.x - camera.left;
     const distanceRight = camera.right - this.position.x;
-    if (distanceLeft < this.radius || distanceRight <= this.radius)
-      this.velocityX = -this.velocityX;
+    if (distanceLeft <= this.radius)
+      this.velocityX = Math.abs(this.velocityX);
+    if (distanceRight <= this.radius)
+      this.velocityX = -Math.abs(this.velocityX);
+    // Se usa abs para evitar que se quede en bucle si entra en un borde
     
     const distanceTop = camera.top - this.position.y;
     const distanceBottom = this.position.y - camera.bottom;
-    if (distanceTop < this.radius || distanceBottom <= this.radius)
-      this.velocityY = -this.velocityY;
+    if (distanceTop <= this.radius)
+      this.velocityY = -Math.abs(this.velocityY);
   }
 
   update() {
