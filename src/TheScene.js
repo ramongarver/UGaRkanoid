@@ -7,6 +7,8 @@ import { TrackballControls } from "../lib/TrackballControls.js";
 import { Platform } from "./Platform.js";
 import { Ball } from "./Ball.js";
 
+import { touchHandler } from "./touch.handler.js";
+
 // The Model Facade class. The root node of the graph.
 class TheScene extends THREE.Scene {
   constructor(myCanvas) {
@@ -146,6 +148,10 @@ $(function () {
   output.addEventListener("mousemove", (event) =>
     scene.mouseMoveHandler(event)
   );
+  output.addEventListener("touchstart", touchHandler, true);
+  output.addEventListener("touchmove", touchHandler, true);
+  output.addEventListener("touchend", touchHandler, true);
+  output.addEventListener("touchcancel", touchHandler, true);
   window.addEventListener(
     "keydown",
     (event) => scene.keyDownHandler(event),
