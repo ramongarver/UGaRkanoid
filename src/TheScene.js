@@ -6,7 +6,8 @@ import { TrackballControls } from "../lib/TrackballControls.js";
 
 import { Platform } from "./Platform.js";
 import { Ball } from "./Ball.js";
-import { Brick } from "./Brick.js";
+import { BrickWall } from "./BrickWall.js";
+import { Direction } from "./Direction.js";
 
 import { touchHandler } from "./touch.handler.js";
 
@@ -14,6 +15,8 @@ import { touchHandler } from "./touch.handler.js";
 class TheScene extends THREE.Scene {
   constructor(myCanvas) {
     super();
+    this.cameraWidth = 4;
+    this.cameraHeight = 4;
 
     this.platform = new Platform(this);
     this.add(this.platform);
@@ -21,8 +24,8 @@ class TheScene extends THREE.Scene {
     this.ball = new Ball(this);
     this.add(this.ball);
 
-    this.brick = new Brick(this);
-    this.add(this.brick);
+    this.brickWall = new BrickWall(this, 16, 4, (this.cameraHeight / 2) * 0.8);
+    this.add(this.brickWall);
 
     // Attributes
     this.renderer = this.createRenderer(myCanvas);
@@ -36,16 +39,14 @@ class TheScene extends THREE.Scene {
     this.ground = null;
     this.clock = new THREE.Clock();
 
-    this.createLights();
     this.createCamera();
+    this.createLights();
     this.axis = new THREE.AxesHelper(25);
     this.add(this.axis);
   }
 
   // It creates the camera and adds it to the graph
   createCamera() {
-    this.cameraWidth = 4;
-    this.cameraHeight = 4;
     this._camera = new THREE.OrthographicCamera(
       -this.cameraWidth / 2,
       this.cameraWidth / 2,
@@ -61,9 +62,8 @@ class TheScene extends THREE.Scene {
   // It creates lights and adds them to the graph
   createLights() {
     // add subtle ambient lighting
-    this.ambientLight = new THREE.AmbientLight(0xccddee, 0.35);
-    this.add(this.ambientLight);
-
+    //this.ambientLight = new THREE.AmbientLight(0x000000, 0.35);
+    //this.add(this.ambientLight);
     // add spotlight for the shadows
     //this.spotLight = new THREE.SpotLight( 0xffffff, 1);
     //this.spotLight.position.set( 60, 60, 40 );
@@ -76,7 +76,7 @@ class TheScene extends THREE.Scene {
 
   createRenderer(myCanvas) {
     let renderer = new THREE.WebGLRenderer();
-    renderer.setClearColor(new THREE.Color(0xeeeeee), 1.0);
+    renderer.setClearColor(new THREE.Color(0x000000), 1.0);
     const minSize = Math.min(window.innerWidth, window.innerHeight);
     renderer.setSize(minSize, minSize);
     //renderer.shadowMap.enabled = true;
@@ -89,13 +89,25 @@ class TheScene extends THREE.Scene {
   }
 
   keyDownHandler(event) {
-    let x = event.which || event.keyCode;
+    const x = event.which || event.keyCode;
     switch (x) {
       case 37:
-        this.platform.moveLeft();
+        this.platformMovement = Direction.Left;
         break; // left arrow
       case 39:
-        this.platform.moveRight();
+        this.platformMovement = Direction.Right;
+        break; // right arrow
+    }
+  }
+
+  keyUpHandler(event) {
+    const x = event.which || event.keyCode;
+    switch (x) {
+      case 37:
+        this.platformMovement = Direction.None;
+        break; // left arrow
+      case 39:
+        this.platformMovement = Direction.None;
         break; // right arrow
     }
   }
@@ -138,6 +150,8 @@ class TheScene extends THREE.Scene {
     this.renderer.render(this, this.camera);
 
     this.ball.update();
+
+    this.platform.update();
   }
 }
 
@@ -161,6 +175,7 @@ $(function () {
     (event) => scene.keyDownHandler(event),
     true
   );
+  window.addEventListener("keyup", (event) => scene.keyUpHandler(event), true);
 
   // Que no se nos olvide, la primera visualización.
   scene.update();
