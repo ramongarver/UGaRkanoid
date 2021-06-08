@@ -20,8 +20,9 @@ class Ball extends THREE.Object3D {
   }
 
   checkCollisions() {
-    this.checkCollisionPlatform(this.scene.platform);
     this.checkCollisionBorder(this.scene.camera);
+    this.checkCollisionPlatform(this.scene.platform);
+    this.checkCollisionBrick(this.scene.brick);
   }
 
   checkCollisionPlatform(platform) {
@@ -38,6 +39,23 @@ class Ball extends THREE.Object3D {
     }
   }
 
+
+  checkCollisionBrick(platform) {
+    const leftPlatformX = platform.position.x - platform.width / 2;
+    const rightPlatformX = platform.position.x + platform.width / 2;
+    const collisionX =
+      this.position.x >= leftPlatformX && this.position.x <= rightPlatformX;
+    const distanceY = Math.abs(this.position.y - platform.position.y);
+    const collisionY = distanceY <= this.radius + platform.height / 2;
+    
+    if (collisionX && collisionY) {
+      this.velocityY = -this.velocityY;
+      this.velocityX += this.position.x - platform.position.x;
+      this.scene.remove(platform);
+    }
+  }
+
+
   checkCollisionBorder(camera) {
     const distanceLeft = this.position.x - camera.left;
     const distanceRight = camera.right - this.position.x;
@@ -45,13 +63,20 @@ class Ball extends THREE.Object3D {
       this.velocityX = Math.abs(this.velocityX);
     if (distanceRight <= this.radius)
       this.velocityX = -Math.abs(this.velocityX);
+    
     // Se usa abs para evitar que se quede en bucle si entra en un borde
     
     const distanceTop = camera.top - this.position.y;
     const distanceBottom = this.position.y - camera.bottom;
     if (distanceTop <= this.radius)
       this.velocityY = -Math.abs(this.velocityY);
-  }
+    if (distanceBottom <= this.radius) {
+      this.velocityX = 0;
+      this.velocityY = 0;
+      this.position.y = camera.bottom + this.radius;
+    }
+}
+
 
   update() {
     this.checkCollisions();
