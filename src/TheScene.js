@@ -2,10 +2,11 @@ import * as THREE from "../lib/three.module.js";
 import { GUI } from "../lib/dat.gui.module.js";
 import { TrackballControls } from "../lib/TrackballControls.js";
 
-// Clases de mi proyecto
+// Clases de nuestro proyecto
 
 import { Platform } from "./Platform.js";
 import { Ball } from "./Ball.js";
+import { Brick } from "./Brick.js";
 
 import { touchHandler } from "./touch.handler.js";
 
@@ -19,6 +20,9 @@ class TheScene extends THREE.Scene {
 
     this.ball = new Ball(this);
     this.add(this.ball);
+
+    this.brick = new Brick(this);
+    this.add(this.brick);
 
     // Attributes
     this.renderer = this.createRenderer(myCanvas);

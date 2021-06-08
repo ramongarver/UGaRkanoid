@@ -2,7 +2,7 @@ import * as THREE from "../lib/three.module.js";
 import { TheScene } from "./TheScene.js";
 
 class Brick extends THREE.Object3D {
-  constructor(scene) {
+  constructor(scene, x, y) {
     super();
 
     this.scene = scene;
