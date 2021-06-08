@@ -22,61 +22,64 @@ class Ball extends THREE.Object3D {
   checkCollisions() {
     this.checkCollisionBorder(this.scene.camera);
     this.checkCollisionPlatform(this.scene.platform);
-    this.checkCollisionBrick(this.scene.brick);
+    this.checkCollisionBrickWall(this.scene.brickWall);
+  }
+
+  checkCollisionBox(box) {
+    const leftPlatformX = box.position.x - box.width / 2;
+    const rightPlatformX = box.position.x + box.width / 2;
+    const collisionX =
+      this.position.x >= leftPlatformX && this.position.x <= rightPlatformX;
+    const distanceY = Math.abs(this.position.y - box.position.y);
+    const collisionY = distanceY <= this.radius + box.height / 2;
+
+    return collisionX && collisionY;
   }
 
   checkCollisionPlatform(platform) {
-    const leftPlatformX = platform.position.x - platform.width / 2;
-    const rightPlatformX = platform.position.x + platform.width / 2;
-    const collisionX =
-      this.position.x >= leftPlatformX && this.position.x <= rightPlatformX;
-    const distanceY = Math.abs(this.position.y - platform.position.y);
-    const collisionY = distanceY <= this.radius + platform.height / 2;
-    
-    if (collisionX && collisionY) {
-      this.velocityY = -this.velocityY;
-      this.velocityX += this.position.x - platform.position.x;
+    const thereIsCollision = this.checkCollisionBox(platform);
+
+    if (thereIsCollision) {
+      this.velocityY =
+        this.position.y > platform.position.y
+          ? Math.abs(this.velocityY)
+          : -Math.abs(this.velocityY);
+      this.velocityX = (this.position.x - platform.position.x) * 1.5;
     }
   }
 
+  checkCollisionBrick(brick) {
+    const thereIsCollision = this.checkCollisionBox(brick);
 
-  checkCollisionBrick(platform) {
-    const leftPlatformX = platform.position.x - platform.width / 2;
-    const rightPlatformX = platform.position.x + platform.width / 2;
-    const collisionX =
-      this.position.x >= leftPlatformX && this.position.x <= rightPlatformX;
-    const distanceY = Math.abs(this.position.y - platform.position.y);
-    const collisionY = distanceY <= this.radius + platform.height / 2;
-    
-    if (collisionX && collisionY) {
+    if (thereIsCollision) {
       this.velocityY = -this.velocityY;
-      this.velocityX += this.position.x - platform.position.x;
-      this.scene.remove(platform);
+      this.velocityX += this.position.x - brick.position.x;
+      // TODO: eliminar ladrillo
+      this.scene.brickWall.remove(brick);
     }
   }
 
+  checkCollisionBrickWall(brickWall) {
+    for (const brick of brickWall.children) {
+      this.checkCollisionBrick(brick);
+    }
+
+  }
 
   checkCollisionBorder(camera) {
-    const distanceLeft = this.position.x - camera.left;
-    const distanceRight = camera.right - this.position.x;
-    if (distanceLeft <= this.radius)
-      this.velocityX = Math.abs(this.velocityX);
-    if (distanceRight <= this.radius)
-      this.velocityX = -Math.abs(this.velocityX);
-    
+    const minLeft = camera.left + this.radius;
+    const maxRight = camera.right - this.radius;
+    if (this.position.x <= minLeft) this.velocityX = Math.abs(this.velocityX);
+    if (this.position.x >= maxRight) this.velocityX = -Math.abs(this.velocityX);
     // Se usa abs para evitar que se quede en bucle si entra en un borde
-    
-    const distanceTop = camera.top - this.position.y;
-    const distanceBottom = this.position.y - camera.bottom;
-    if (distanceTop <= this.radius)
-      this.velocityY = -Math.abs(this.velocityY);
-    if (distanceBottom <= this.radius) {
-      this.velocityX = 0;
-      this.velocityY = 0;
-      this.position.y = camera.bottom + this.radius;
-    }
-}
 
+    const maxTop = camera.top - this.radius;
+    const minBottom = camera.bottom - this.radius;
+    if (this.position.y >= maxTop) this.velocityY = -Math.abs(this.velocityY);
+    if (this.position.y <= minBottom) {
+      // Usuario ha perdido
+    }
+  }
 
   update() {
     this.checkCollisions();
