@@ -17,23 +17,25 @@ class Platform extends THREE.Object3D {
   }
 
   moveLeft() {
+    // TODO: implementar bien
     if (this.position.x >= -1) this.position.x -= 0.5;
   }
 
   moveRight() {
+    // TODO: implementar bien
     if (this.position.x <= 1) this.position.x += 0.5;
   }
 
   mouseMoveHandler(event, cameraWidth) {
-    const offsetLeft = event.target.offsetLeft;
-    const width = event.target.clientWidth;
-    const relativeX = event.pageX - offsetLeft;
+    const divOffsetLeft = event.target.offsetLeft;
+    const divWidth = event.target.clientWidth;
+    const relativeX = event.pageX - divOffsetLeft;
 
     document.querySelector(
       "#info"
-    ).innerHTML = `x: ${relativeX}<br/>width: ${width}`;
+    ).innerHTML = `x: ${relativeX}<br/>width: ${divWidth}`;
 
-    let mouseX = (relativeX / width) * cameraWidth - cameraWidth / 2;
+    let mouseX = (relativeX / divWidth) * cameraWidth - cameraWidth / 2;
     const min = -cameraWidth / 2 + this.width / 2;
     const max = cameraWidth / 2 - this.width / 2;
     if (mouseX < min) {
