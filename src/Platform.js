@@ -8,12 +8,14 @@ class Platform extends THREE.Object3D {
     this.scene = scene;
 
     this.width = 0.8;
-    let geometryPlatform = new THREE.BoxBufferGeometry(this.width, 0.1, 0);
-    geometryPlatform.translate(0, 1.8, 0);
+    this.height = 0.1;
+    let geometryPlatform = new THREE.BoxBufferGeometry(this.width, this.height, 0);
+    //geometryPlatform.translate(0, -1.8, 0);
     let materialPlatform = new THREE.MeshBasicMaterial({ color: 0xf0f201 });
     this.platform = new THREE.Mesh(geometryPlatform, materialPlatform);
 
     this.add(this.platform);
+    this.position.y = -1.8;
   }
 
   moveLeft() {
@@ -31,16 +33,22 @@ class Platform extends THREE.Object3D {
     const divWidth = event.target.clientWidth;
     const relativeX = event.pageX - divOffsetLeft;
 
-    document.querySelector(
-      "#info"
-    ).innerHTML = `x: ${relativeX}<br/>width: ${divWidth}`;
+    // document.querySelector(
+    //   "#info"
+    // ).innerHTML = `x: ${relativeX}<br/>width: ${divWidth}`;
 
-    let mouseX = (relativeX / divWidth) * cameraWidth - cameraWidth / 2;
+    // Valor entre 0 y 1 
+    const relativeXWorld = relativeX / divWidth;
+    let mouseX = relativeXWorld * cameraWidth - cameraWidth / 2;
     const min = -cameraWidth / 2 + this.width / 2;
     const max = cameraWidth / 2 - this.width / 2;
+
+    
     if (mouseX < min) {
+      // Para que no pueda salirse por la izquierda
       mouseX = min;
     } else if (mouseX > max) {
+      // Para que no pueda salirse por la derecha
       mouseX = max;
     }
     this.setPositionX(mouseX);

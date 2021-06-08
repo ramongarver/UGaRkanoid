@@ -28,6 +28,7 @@ class TheScene extends THREE.Scene {
     this.trackballControls = null;
     this.crane = null;
     this.ground = null;
+    this.clock = new THREE.Clock();
 
     this.createLights();
     this.createCamera();
@@ -42,8 +43,8 @@ class TheScene extends THREE.Scene {
     this._camera = new THREE.OrthographicCamera(
       -this.cameraWidth / 2,
       this.cameraWidth / 2,
-      -this.cameraHeight / 2,
       this.cameraHeight / 2,
+      -this.cameraHeight / 2,
       -2.0,
       2.0
     );
@@ -125,8 +126,12 @@ class TheScene extends THREE.Scene {
     // Si no existiera esta línea,  update()  se ejecutaría solo la primera vez.
     requestAnimationFrame(() => this.update());
 
+    TheScene.deltaTime = this.clock.getDelta();
+
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render(this, this.camera);
+
+    this.ball.update();
   }
 }
 
