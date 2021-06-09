@@ -13,10 +13,19 @@ class Ball extends THREE.Object3D {
     let geometryBall = new THREE.SphereBufferGeometry(this.radius, 50, 50);
     this.position.x = 0.0;
     this.position.y = -1.7;
-    let materialBall = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+    let materialBall = this.loadTextureMaterial();
     this.ball = new THREE.Mesh(geometryBall, materialBall);
 
     this.add(this.ball);
+  }
+
+  loadTextureMaterial() {
+    const loader = new THREE.TextureLoader();
+    return new THREE.MeshPhongMaterial({
+      map: loader.load(
+        "../assets/BreakoutTileSetFree/PNG/58-Breakout-Tiles.png"
+      ),
+    });
   }
 
   checkCollisions() {
@@ -54,8 +63,8 @@ class Ball extends THREE.Object3D {
     if (thereIsCollision) {
       this.velocityY = -this.velocityY;
       this.velocityX += this.position.x - brick.position.x;
-      // TODO: eliminar ladrillo
-      this.scene.brickWall.remove(brick);
+
+      brick.hasCollided();
     }
   }
 
@@ -63,7 +72,6 @@ class Ball extends THREE.Object3D {
     for (const brick of brickWall.children) {
       this.checkCollisionBrick(brick);
     }
-
   }
 
   checkCollisionBorder(camera) {
@@ -77,7 +85,7 @@ class Ball extends THREE.Object3D {
     const minBottom = camera.bottom - this.radius;
     if (this.position.y >= maxTop) this.velocityY = -Math.abs(this.velocityY);
     if (this.position.y <= minBottom) {
-      // Usuario ha perdido
+      this.scene.game.subtractLife();
     }
   }
 

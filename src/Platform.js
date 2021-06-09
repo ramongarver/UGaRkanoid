@@ -17,13 +17,22 @@ class Platform extends THREE.Object3D {
       0
     );
     //geometryPlatform.translate(0, -1.8, 0);
-    let materialPlatform = new THREE.MeshBasicMaterial({ color: 0xf0f201 });
+    let materialPlatform = this.loadTextureMaterial();
     this.platform = new THREE.Mesh(geometryPlatform, materialPlatform);
 
     this.add(this.platform);
     this.position.y = -1.8;
 
     this.arrowVelocity = 2;
+  }
+
+  loadTextureMaterial() {
+    const loader = new THREE.TextureLoader();
+    return new THREE.MeshPhongMaterial({
+      map: loader.load(
+        "../assets/BreakoutTileSetFree/PNG/50-Breakout-Tiles.png"
+      ),
+    });
   }
 
   mouseMoveHandler(event, cameraWidth) {
