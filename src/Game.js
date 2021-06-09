@@ -6,18 +6,20 @@ import { touchHandler } from "./touch.handler.js";
 class Game {
   constructor(myCanvas) {
     this.state = Game.INIT;
-    this.level = 9;
+    this.level = 2;
     this.lifes = 3;
     this.points = 0;
     this.startTime = THREE.Clock.start;
     this.canvas = myCanvas;
     this.lifesDiv = document.getElementById("lifes");
+    this.pointsDiv = document.getElementById("points");
 
     this.scene = new TheScene(this.canvas, this);
 
     this.renderer = this.createRenderer(myCanvas);
 
     this.createLifes();
+    this.createPoints();
   }
 
   createLifeImg() {
@@ -45,6 +47,16 @@ class Game {
       return;
     }
     this.startAgain();
+  }
+
+  createPoints() {
+    const pointsText = document.createTextNode(this.points);
+    this.pointsDiv.appendChild(pointsText);
+  }
+
+  addPoints(points) {
+    this.points += points;
+    this.pointsDiv.innerHTML = this.points;
   }
 
   async startAgain() {
