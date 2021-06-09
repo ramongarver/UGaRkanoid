@@ -7,14 +7,20 @@
         <script type="text/javascript" src="../lib/jquery.js"></script>
         <script type="module" src="src/Game.js" defer></script>
         <style>
+            html, body {
+                height: 100%;
+            }
             body{
                 margin: 0;
                 overflow: hidden;
                 background-color: rgb(43, 43, 43);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
-            #WebGL-output {
-                width: fit-content;
-                margin: auto;
+            #game {
+                display: flex;
+                align-items: center;
                 box-shadow: 0 0 10px #000;
             }
             #info {
@@ -23,14 +29,24 @@
                 top: 10px;
                 left: 10px;
             }
+            #lifes {
+                display: flex;
+                height: 100%;
+                width: 2em;
+                padding: 0 0.5em;
+                flex-direction: column;
+                justify-content: center;
+            }
         </style>
     </head>
 
     <body>
         <div id="info"></div>
         <!-- Div which will hold the Output -->
-        <div id="WebGL-output"></div>
-        
+        <div id="game">
+            <div id="WebGL-output"></div>
+            <div id="lifes"></div>
+        </div>
         <!-- <div id="modal">
             <p>Juego</p>
             <div class="niveles">
