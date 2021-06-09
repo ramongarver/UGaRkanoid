@@ -17,7 +17,7 @@ class Platform extends THREE.Object3D {
       this.height,
       0
     );
-    //geometryPlatform.translate(0, -1.8, 0);
+    
     let materialPlatform = this.loadTextureMaterial();
     this.platform = new THREE.Mesh(geometryPlatform, materialPlatform);
 
@@ -91,5 +91,17 @@ class Platform extends THREE.Object3D {
     }
   }
 }
+
+
+const loader = new THREE.TextureLoader();
+
+Platform.materials = [ 
+  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/50-Breakout-Tiles.png")}),
+  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/51-Breakout-Tiles.png")}),
+  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/52-Breakout-Tiles.png")}),
+  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/54-Breakout-Tiles.png")}),
+  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/55-Breakout-Tiles.png")}),
+  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/56-Breakout-Tiles.png")}) 
+]
 
 export { Platform };
