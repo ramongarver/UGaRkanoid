@@ -2,6 +2,7 @@ import * as THREE from "../lib/three.module.js";
 import { TheScene } from "./TheScene.js";
 
 import { Direction } from "./Direction.js";
+import { Game } from "./Game.js";
 
 class Platform extends THREE.Object3D {
   constructor(scene) {
@@ -26,6 +27,10 @@ class Platform extends THREE.Object3D {
     this.arrowVelocity = 2;
   }
 
+  restart() {
+    this.position.x = 0;
+  }
+
   loadTextureMaterial() {
     const loader = new THREE.TextureLoader();
     return new THREE.MeshPhongMaterial({
@@ -36,24 +41,26 @@ class Platform extends THREE.Object3D {
   }
 
   mouseMoveHandler(event, cameraWidth) {
-    const divOffsetLeft = event.target.offsetLeft;
-    const divWidth = event.target.clientWidth;
-    const relativeX = event.pageX - divOffsetLeft;
+    if (this.scene.game.state === Game.PLAYING) {
+      const divOffsetLeft = event.target.offsetLeft;
+      const divWidth = event.target.clientWidth;
+      const relativeX = event.pageX - divOffsetLeft;
 
-    // Valor entre 0 y 1
-    const relativeXWorld = relativeX / divWidth;
-    let mouseX = relativeXWorld * cameraWidth - cameraWidth / 2;
-    const min = -cameraWidth / 2 + this.width / 2;
-    const max = cameraWidth / 2 - this.width / 2;
+      // Valor entre 0 y 1
+      const relativeXWorld = relativeX / divWidth;
+      let mouseX = relativeXWorld * cameraWidth - cameraWidth / 2;
+      const min = -cameraWidth / 2 + this.width / 2;
+      const max = cameraWidth / 2 - this.width / 2;
 
-    if (mouseX < min) {
-      // Para que no pueda salirse por la izquierda
-      mouseX = min;
-    } else if (mouseX > max) {
-      // Para que no pueda salirse por la derecha
-      mouseX = max;
+      if (mouseX < min) {
+        // Para que no pueda salirse por la izquierda
+        mouseX = min;
+      } else if (mouseX > max) {
+        // Para que no pueda salirse por la derecha
+        mouseX = max;
+      }
+      this.setPositionX(mouseX);
     }
-    this.setPositionX(mouseX);
   }
 
   setPositionX(x) {
@@ -71,14 +78,16 @@ class Platform extends THREE.Object3D {
   }
 
   update() {
-    switch (this.scene.platformMovement) {
-      case Direction.Left:
-        this.moveLeft();
-        break;
+    if (this.scene.game.state === Game.PLAYING) {
+      switch (this.scene.platformMovement) {
+        case Direction.Left:
+          this.moveLeft();
+          break;
 
-      case Direction.Right:
-        this.moveRight();
-        break;
+        case Direction.Right:
+          this.moveRight();
+          break;
+      }
     }
   }
 }

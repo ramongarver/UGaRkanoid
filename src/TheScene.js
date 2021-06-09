@@ -72,6 +72,9 @@ class TheScene extends THREE.Scene {
   keyDownHandler(event) {
     const x = event.which || event.keyCode;
     switch (x) {
+      case 32:
+        this.game.mouseUpHandler();
+        break;
       case 37:
         this.platformMovement = Direction.Left;
         break; // left arrow
@@ -119,6 +122,21 @@ class TheScene extends THREE.Scene {
     this._camera.aspect = anAspectRatio;
     this._camera.updateProjectionMatrix();
   }
+
+  
+  restart() {
+    this.restartBall();
+    this.restartPlatform();
+  }
+
+  restartBall () {
+    this.ball.restart();
+  }
+
+  restartPlatform() {
+    this.platform.restart();
+  }
+
 
   update() {
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.

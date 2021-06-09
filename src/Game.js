@@ -5,28 +5,57 @@ import { touchHandler } from "./touch.handler.js";
 
 class Game {
   constructor(myCanvas) {
-    this.level = 3;
+    this.state = Game.INIT;
+    this.level = 9;
     this.lifes = 3;
     this.points = 0;
     this.startTime = THREE.Clock.start;
     this.canvas = myCanvas;
+    this.lifesDiv = document.getElementById("lifes");
 
     this.scene = new TheScene(this.canvas, this);
 
     this.renderer = this.createRenderer(myCanvas);
+
+    this.createLifes();
   }
 
-  subtractLife() {
-    this.lifes--;
-    if (this.lifes === 0) {
-      this.gameOver();
+  createLifeImg() {
+    const lifeImg = document.createElement("img");
+    lifeImg.src = "./assets/BreakoutTileSetFree/PNG/60-Breakout-Tiles.png";
+    return lifeImg;
+  }
+
+  createLifes() {
+    for (let i = 0; i < this.lifes; i++) {
+      this.lifesDiv.appendChild(this.createLifeImg());
     }
   }
 
-  checkVictory() {
+  addLife() {
+    this.lifes++;
+    this.lifesDiv.appendChild(this.createLifeImg());
+  }
+
+  async subtractLife() {
+    this.lifes--;
+    this.lifesDiv.removeChild(this.lifesDiv.lastChild);
+    if (this.lifes === 0) {
+      this.gameOver();
+      return;
+    }
+    this.startAgain();
+  }
+
+  async startAgain() {
+    this.state = Game.STOPPED;
+    this.scene.restart();
+  }
+
+  async checkVictory() {
     if (this.scene.brickWall.getBricksLeft() === 0) {
       this.scene.remove(this.scene.ball);
-      window.setTimeout(() => this.startNextLevel(), 2000);
+      await new Promise((r) => setTimeout(() => this.startNextLevel(), 2000));
     }
   }
 
@@ -39,12 +68,10 @@ class Game {
     this.scene = new TheScene(this.canvas, this);
   }
 
-  finishGameVictory() {
-      
-  }
+  finishGameVictory() {}
 
-  gameOver() {
-
+  async gameOver() {
+    await new Promise((r) => setTimeout(() => this.startNextLevel(), 2000));
   }
 
   update() {
@@ -64,7 +91,23 @@ class Game {
     myCanvas.append(renderer.domElement);
     return renderer;
   }
+
+  mouseUpHandler() {
+    switch (this.state) {
+      case Game.INIT:
+        this.state = Game.PLAYING;
+        break;
+      case Game.STOPPED:
+        this.scene.restart();
+        this.state = Game.PLAYING;
+        break;
+    }
+  }
 }
+
+Game.PLAYING = "PLAYING";
+Game.STOPPED = "STOPPED";
+Game.INIT = "INIT";
 
 // Main function
 $(function () {
@@ -76,6 +119,7 @@ $(function () {
   output.addEventListener("mousemove", (event) =>
     game.scene.mouseMoveHandler(event)
   );
+  output.addEventListener("mouseup", () => game.mouseUpHandler());
   output.addEventListener("touchstart", touchHandler, true);
   output.addEventListener("touchmove", touchHandler, true);
   output.addEventListener("touchend", touchHandler, true);
@@ -94,5 +138,7 @@ $(function () {
   // Que no se nos olvide, la primera visualización.
   game.update();
 });
+
+
 
 export { Game };

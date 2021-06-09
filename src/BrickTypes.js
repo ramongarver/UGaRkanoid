@@ -88,12 +88,12 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/11-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/13-Breakout-Tiles.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/12-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/14-Breakout-Tiles.png"
         ),
       }),
     ]
@@ -104,12 +104,12 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/13-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/11-Breakout-Tiles.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/14-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/12-Breakout-Tiles.png"
         ),
       }),
     ]
