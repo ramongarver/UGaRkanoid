@@ -8,12 +8,22 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/01-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/01-Breakout-Tiles_0.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/02-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/01-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/01-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/01-Breakout-Tiles_3.png"
         ),
       }),
     ]
@@ -24,12 +34,22 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/03-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/02-Breakout-Tiles_0.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/04-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/02-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/02-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/02-Breakout-Tiles_3.png"
         ),
       }),
     ]
@@ -40,12 +60,22 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/05-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/03-Breakout-Tiles_0.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/06-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/03-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/03-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/03-Breakout-Tiles_3.png"
         ),
       }),
     ]
@@ -56,12 +86,22 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/07-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/04-Breakout-Tiles_0.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/08-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/04-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/04-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/04-Breakout-Tiles_3.png"
         ),
       }),
     ]
@@ -72,28 +112,22 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/09-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/05-Breakout-Tiles_0.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/10-Breakout-Tiles.png"
-        ),
-      }),
-    ]
-  },
-
-  'yellow': {
-    points: 10,
-    material: [
-      new THREE.MeshLambertMaterial({
-        map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/13-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/05-Breakout-Tiles_1.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/14-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/05-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/05-Breakout-Tiles_3.png"
         ),
       }),
     ]
@@ -104,12 +138,48 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/11-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/06-Breakout-Tiles_0.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/12-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/06-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/06-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/06-Breakout-Tiles_3.png"
+        ),
+      }),
+    ]
+  },
+
+  'yellow': {
+    points: 10,
+    material: [
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/07-Breakout-Tiles_0.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/07-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/07-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/07-Breakout-Tiles_3.png"
         ),
       }),
     ]
@@ -120,12 +190,22 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/15-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/08-Breakout-Tiles_0.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/16-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/08-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/08-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/08-Breakout-Tiles_3.png"
         ),
       }),
     ]
@@ -136,12 +216,48 @@ const BrickColors = {
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/17-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/09-Breakout-Tiles_0.png"
         ),
       }),
       new THREE.MeshLambertMaterial({
         map: loader.load(
-          "../assets/BreakoutTileSetFree/PNG/18-Breakout-Tiles.png"
+          "../assets/BreakoutTileSetFree/PNG/09-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/09-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/09-Breakout-Tiles_3.png"
+        ),
+      }),
+    ]
+  },
+
+  'brown': {
+    points: 0,
+    material: [
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/10-Breakout-Tiles_0.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/10-Breakout-Tiles_1.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/10-Breakout-Tiles_2.png"
+        ),
+      }),
+      new THREE.MeshLambertMaterial({
+        map: loader.load(
+          "../assets/BreakoutTileSetFree/PNG/10-Breakout-Tiles_3.png"
         ),
       }),
     ]
@@ -190,6 +306,11 @@ const BrickTypes = {
   'd2': {color: BrickColors['darkgreen'], hardness: 2},
   'd3': {color: BrickColors['darkgreen'], hardness: 3},
   'd4': {color: BrickColors['darkgreen'], hardness: 4},
+
+  'l1': {color: BrickColors['brown'], hardness: 1},
+  'l2': {color: BrickColors['brown'], hardness: 2},
+  'l3': {color: BrickColors['brown'], hardness: 3},
+  'l4': {color: BrickColors['brown'], hardness: 4},
 
   'gf': {color: BrickColors['gray'], hardness: -1},
 };
