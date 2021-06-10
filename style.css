@@ -13,6 +13,11 @@ body {
   justify-content: center;
 }
 
+h1 {
+  font-family: "Press Start 2P", "Trebuchet MS", "Lucida Sans Unicode",
+    "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+}
+
 .hidden {
   opacity: 0 !important;
   visibility: hidden !important;
@@ -48,12 +53,6 @@ body {
   display: flex;
   align-items: stretch;
   box-shadow: 0 0 10px #000;
-}
-#info {
-  z-index: 100;
-  position: fixed;
-  top: 10px;
-  left: 10px;
 }
 #lifes,
 #left-bar {
@@ -125,12 +124,17 @@ button {
   padding: 5px 15px;
 }
 
-.level-button-selected, .level-button:hover, .long-button:hover, #restart-button:hover {
+.level-button-selected,
+.level-button:hover,
+.long-button:hover,
+#restart-button:hover {
   background-color: yellow;
   color: black;
 }
 
 .primary-button {
+  font-family: "Press Start 2P", "Trebuchet MS", "Lucida Sans Unicode",
+    "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   margin-top: 2em;
   font-size: 1.5em;
   font-weight: 700;

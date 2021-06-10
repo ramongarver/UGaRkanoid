@@ -133,7 +133,7 @@ class Game {
     this.level++;
     this.scene = new TheScene(this.canvas, this);
     this.state = Game.INIT;
-    this.ellapsedTime = 0.0;
+    this.ellapsedTime = { BULLET: 0, LIFE: 0 };
     this.displayLevel();
   }
 

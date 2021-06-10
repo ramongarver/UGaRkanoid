@@ -70,7 +70,7 @@ class TheScene extends THREE.Scene {
     const loader = new THREE.TextureLoader();
 
     this.background = loader.load(
-      "../assets/BreakoutTileSetFree/PNG/etsiit.png"
+      "../assets/etsiit.png"
     );
   }
 
@@ -115,19 +115,9 @@ class TheScene extends THREE.Scene {
     this.game.renderer.setSize(minSize, minSize);
   }
 
-  setMessage(str) {
-    document.getElementById("Messages").innerHTML = "<h2>" + str + "</h2>";
-  }
-
   // It returns the camera
   get camera() {
     return this._camera;
-  }
-
-  // It updates the aspect ratio of the camera
-  setCameraAspect(anAspectRatio) {
-    this._camera.aspect = anAspectRatio;
-    this._camera.updateProjectionMatrix();
   }
 
   restart() {

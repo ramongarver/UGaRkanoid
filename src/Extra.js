@@ -63,7 +63,7 @@ Extra.types = {
     material: new THREE.MeshPhongMaterial({
       transparent: true,
       map: loader.load(
-        "../assets/BreakoutTileSetFree/PNG/org-lgbt-heart-01-128.png"
+        "../assets/org-lgbt-heart-01-128.png"
       ),
     }),
   },
