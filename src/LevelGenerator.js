@@ -31,8 +31,6 @@ class LevelGenerator {
     this.rowsNumber = rowsNumber;
     this.columnsNumber = columnsNumber;
     this.maximumHardness = maximumHardness;
-
-    BrickTypes.keys;
   }
 
   generateLevel() {
