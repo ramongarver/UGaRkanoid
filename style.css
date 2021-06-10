@@ -46,7 +46,7 @@ body {
 
 #game {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   box-shadow: 0 0 10px #000;
 }
 #info {
@@ -58,20 +58,28 @@ body {
 #lifes,
 #left-bar {
   display: flex;
-  height: 100%;
   width: 2em;
   padding: 0 0.5em;
   flex-direction: column;
-  justify-content: center;
   align-items: stretch;
   gap: 0.6em;
+}
+
+#left-bar {
+  gap: 2em;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#lifes {
+  justify-content: center;
 }
 
 #points {
   color: white;
   font-weight: bold;
   width: fit-content;
-  margin: auto;
+  margin: 0;
 }
 
 #levels {
@@ -82,13 +90,24 @@ body {
   gap: 1em;
 }
 
+#level-display {
+  color: yellow;
+  text-align: center;
+  font-weight: bold;
+}
+
 button {
+  display: block;
   font-family: inherit;
   border-style: none;
-  transition: background-color ease 0.3s;
+  transition: background-color ease 0.3s, color ease 0.3s;
   cursor: pointer;
   background-color: black;
   color: yellow;
+}
+
+#restart-button {
+  padding: 0;
 }
 
 .level-button {
@@ -96,6 +115,7 @@ button {
   height: 1.5em;
   font-size: 1.2em;
   border-radius: 50%;
+  padding: 0;
 }
 
 .long-button {
@@ -105,7 +125,7 @@ button {
   padding: 5px 15px;
 }
 
-.level-button-selected {
+.level-button-selected, .level-button:hover, .long-button:hover, #restart-button:hover {
   background-color: yellow;
   color: black;
 }
