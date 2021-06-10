@@ -12,9 +12,15 @@ import { Extra } from "./Extra.js";
 class TheScene extends THREE.Scene {
   constructor(myCanvas, game) {
     super();
+
+    // Scene attributes
     this.cameraWidth = 4;
     this.cameraHeight = 4;
+    this.ambientLight = null;
+    this._camera = null;
+    this.clock = new THREE.Clock();
 
+    // Game attributes
     this.game = game;
 
     this.platform = new Platform(this);
@@ -30,17 +36,8 @@ class TheScene extends THREE.Scene {
     );
     this.add(this.brickWall);
 
-    // Attributes
-
-    this.ambientLight = null;
-    this.spotLight = null;
-    this._camera = null;
-    this.trackballControls = null;
-    this.crane = null;
-    this.ground = null;
-    this.clock = new THREE.Clock();
-
     this.extras = [];
+
 
     this.createCamera();
     this.createLights();
@@ -70,18 +67,11 @@ class TheScene extends THREE.Scene {
 
   // It creates the background and adds it to the graph
   createBackground() {
-    // const geometryBackground = new THREE.BoxBufferGeometry(this.cameraWidth, this.cameraHeight, 0.1);
-
     const loader = new THREE.TextureLoader();
 
     this.background = loader.load(
       "../assets/BreakoutTileSetFree/PNG/etsiit.png"
     );
-
-    // this.background = new THREE.Mesh(geometryBackground, materialBackground);
-    // this.background.position.z = -1;
-
-    // this.add(this.background);
   }
 
   mouseMoveHandler(event) {
@@ -119,10 +109,8 @@ class TheScene extends THREE.Scene {
 
   windowResizeHandler() {
     // Este método es llamado cada vez que el usuario modifica el tamaño de la ventana de la aplicación
-    // Hay que actualizar el ratio de aspecto de la cámara
-    //this.setCameraAspect (window.innerWidth / window.innerHeight);
 
-    // Y también el tamaño del renderizador
+    // Hay que actualizar el tamaño del renderizador: cuadrado
     const minSize = Math.min(window.innerWidth, window.innerHeight);
     this.game.renderer.setSize(minSize, minSize);
   }
@@ -163,14 +151,15 @@ class TheScene extends THREE.Scene {
     this.platform.restart();
   }
 
-  createExtra() {
-    const newExtra = new Extra(this, Extra.types["BULLET"]);
+  createExtra(type) {
+    const newExtra = new Extra(this, Extra.types[type]);
     this.extras.push(newExtra);
     this.add(newExtra);
   }
 
   update() {
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
+    this.game.renderer.render(this, this.camera);
 
     TheScene.deltaTime = this.clock.getDelta();
 
@@ -182,7 +171,6 @@ class TheScene extends THREE.Scene {
 
     this.extras.forEach((extra) => extra.update());
 
-    this.game.renderer.render(this, this.camera);
   }
 }
 

@@ -18,8 +18,9 @@ class Game {
     this.createLifes();
     this.createPoints();
     this.createStartMenu();
+    this.displayLevel();
 
-    this.ellapsedTime = 0.0;
+    this.ellapsedTime = { BULLET: 0, LIFE: 0 };
   }
 
   initAttributes() {
@@ -77,6 +78,7 @@ class Game {
         levelButton.classList.remove("level-button-selected");
       else levelButton.classList.add("level-button-selected");
     }
+    this.displayLevel();
   }
 
   createStartMenu() {
@@ -132,6 +134,7 @@ class Game {
     this.scene = new TheScene(this.canvas, this);
     this.state = Game.INIT;
     this.ellapsedTime = 0.0;
+    this.displayLevel();
   }
 
   finishGameVictory() {
@@ -149,9 +152,13 @@ class Game {
 
   checkAddExtra() {
     if (this.state == Game.PLAYING) {
-      if (this.ellapsedTime > 1) {
-        this.scene.createExtra();
-        this.ellapsedTime = 0;
+      if (this.ellapsedTime["BULLET"] > 1) {
+        this.scene.createExtra("BULLET");
+        this.ellapsedTime["BULLET"] = 0;
+      }
+      if (this.ellapsedTime["LIFE"] > 8) {
+        this.scene.createExtra("LIFE");
+        this.ellapsedTime["LIFE"] = 0;
       }
     }
   }
@@ -163,7 +170,8 @@ class Game {
 
     this.checkAddExtra();
     this.scene.update();
-    this.ellapsedTime += TheScene.deltaTime;
+    for (const key in this.ellapsedTime)
+      this.ellapsedTime[key] += TheScene.deltaTime;
   }
 
   createRenderer(myCanvas) {
@@ -171,7 +179,6 @@ class Game {
     renderer.setClearColor(new THREE.Color(0x000000), 1.0);
     const minSize = Math.min(window.innerWidth, window.innerHeight);
     renderer.setSize(minSize, minSize);
-    //renderer.shadowMap.enabled = true;
     myCanvas.append(renderer.domElement);
     return renderer;
   }
@@ -189,12 +196,19 @@ class Game {
     }
   }
 
+  displayLevel() {
+    const level = this.level == 99 ? "🎰" : this.level.toString();
+    document.getElementById("level-display").innerText = `Nivel ${level}`;
+  }
+
   restart() {
     this.initAttributes();
 
     this.createStartMenu();
     this.createLifes();
     this.createPoints();
+    this.displayLevel();
+
     const startMenu = document.getElementById("modal-start");
     startMenu.classList.remove("hidden");
   }
@@ -215,10 +229,10 @@ class Game {
 
   manageExtraCollision(extraType) {
     switch (extraType) {
-      case Extra.types['LIFE']:
+      case Extra.types["LIFE"]:
         this.addExtraLife();
         break;
-      case Extra.types['BULLET']:
+      case Extra.types["BULLET"]:
         this.removeExtraLife();
         break;
     }
@@ -264,6 +278,7 @@ $(function () {
       button.parentNode.parentNode.classList.add("hidden");
     };
   });
+  document.getElementById("restart-button").onclick = () => game.restart();
 
   // Que no se nos olvide, la primera visualización.
   game.update();

@@ -1,4 +1,5 @@
 import * as THREE from "../lib/three.module.js";
+import { Game } from "./Game.js";
 import { TheScene } from "./TheScene.js";
 
 function randomFloat(min, max) {
@@ -28,6 +29,8 @@ class Extra extends THREE.Object3D {
   }
 
   checkCollisionPlatform() {
+    if (this.scene.game.state !== Game.PLAYING)
+      return false;
     const platform = this.scene.platform;
     const leftPlatformX = platform.position.x - platform.width / 2;
     const rightBoxX = platform.position.x + platform.width / 2;
