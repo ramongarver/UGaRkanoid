@@ -16,6 +16,7 @@ class Ball extends THREE.Object3D {
     let geometryBall = new THREE.SphereBufferGeometry(this.radius, 50, 50);
     this.position.x = 0.0;
     this.position.y = this.startPositionY;
+    this.position.z = 1;
     let materialBall = this.loadTextureMaterial();
     this.ball = new THREE.Mesh(geometryBall, materialBall);
 

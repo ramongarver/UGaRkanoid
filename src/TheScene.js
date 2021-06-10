@@ -6,7 +6,7 @@ import { Platform } from "./Platform.js";
 import { Ball } from "./Ball.js";
 import { BrickWall } from "./BrickWall.js";
 import { Direction } from "./Direction.js";
-
+import { Extra } from "./Extra.js";
 
 // The Model Facade class. The root node of the graph.
 class TheScene extends THREE.Scene {
@@ -23,7 +23,11 @@ class TheScene extends THREE.Scene {
     this.ball = new Ball(this);
     this.add(this.ball);
 
-    this.brickWall = new BrickWall(this, this.game.level, (this.cameraHeight / 2) * 0.8);
+    this.brickWall = new BrickWall(
+      this,
+      this.game.level,
+      (this.cameraHeight / 2) * 0.8
+    );
     this.add(this.brickWall);
 
     // Attributes
@@ -35,6 +39,8 @@ class TheScene extends THREE.Scene {
     this.crane = null;
     this.ground = null;
     this.clock = new THREE.Clock();
+
+    this.extras = [];
 
     this.createCamera();
     this.createLights();
@@ -68,14 +74,14 @@ class TheScene extends THREE.Scene {
 
     const loader = new THREE.TextureLoader();
 
-    this.background = loader.load("../assets/BreakoutTileSetFree/PNG/etsiit.png");
+    this.background = loader.load(
+      "../assets/BreakoutTileSetFree/PNG/etsiit.png"
+    );
 
     // this.background = new THREE.Mesh(geometryBackground, materialBackground);
     // this.background.position.z = -1;
 
     // this.add(this.background);
-
-
   }
 
   mouseMoveHandler(event) {
@@ -136,13 +142,20 @@ class TheScene extends THREE.Scene {
     this._camera.updateProjectionMatrix();
   }
 
-  
   restart() {
+    this.restartExtras();
     this.restartBall();
     this.restartPlatform();
   }
 
-  restartBall () {
+  restartExtras() {
+    for (const extra of this.extras) {
+      this.remove(extra);
+    }
+    this.extras = [];
+  }
+
+  restartBall() {
     this.ball.restart();
   }
 
@@ -150,6 +163,11 @@ class TheScene extends THREE.Scene {
     this.platform.restart();
   }
 
+  createExtra() {
+    const newExtra = new Extra(this, Extra.types["BULLET"]);
+    this.extras.push(newExtra);
+    this.add(newExtra);
+  }
 
   update() {
     // Este método debe ser llamado cada vez que queramos visualizar la escena de nuevo.
@@ -162,9 +180,10 @@ class TheScene extends THREE.Scene {
 
     this.platform.update();
 
+    this.extras.forEach((extra) => extra.update());
+
     this.game.renderer.render(this, this.camera);
   }
 }
-
 
 export { TheScene };

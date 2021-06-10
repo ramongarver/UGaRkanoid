@@ -1,6 +1,7 @@
 import * as THREE from "../lib/three.module.js";
 import { Levels } from "./Levels.js";
 import { TheScene } from "./TheScene.js";
+import { Extra } from "./Extra.js";
 import { touchHandler } from "./touch.handler.js";
 
 class Game {
@@ -17,6 +18,8 @@ class Game {
     this.createLifes();
     this.createPoints();
     this.createStartMenu();
+
+    this.ellapsedTime = 0.0;
   }
 
   initAttributes() {
@@ -45,7 +48,7 @@ class Game {
     this.lifesDiv.appendChild(this.createLifeImg());
   }
 
-  async subtractLife() {
+  subtractLife() {
     this.lifes--;
     this.lifesDiv.removeChild(this.lifesDiv.lastChild);
     if (this.lifes === 0) {
@@ -128,6 +131,7 @@ class Game {
     this.level++;
     this.scene = new TheScene(this.canvas, this);
     this.state = Game.INIT;
+    this.ellapsedTime = 0.0;
   }
 
   finishGameVictory() {
@@ -143,12 +147,23 @@ class Game {
     document.getElementById("total-points-game-over").innerHTML = this.points;
   }
 
+  checkAddExtra() {
+    if (this.state == Game.PLAYING) {
+      if (this.ellapsedTime > 1) {
+        this.scene.createExtra();
+        this.ellapsedTime = 0;
+      }
+    }
+  }
+
   update() {
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".
     // Si no existiera esta línea,  update()  se ejecutaría solo la primera vez.
     requestAnimationFrame(() => this.update());
 
+    this.checkAddExtra();
     this.scene.update();
+    this.ellapsedTime += TheScene.deltaTime;
   }
 
   createRenderer(myCanvas) {
@@ -182,6 +197,31 @@ class Game {
     this.createPoints();
     const startMenu = document.getElementById("modal-start");
     startMenu.classList.remove("hidden");
+  }
+
+  addExtraLife() {
+    this.lifes++;
+    this.createLifes();
+  }
+
+  removeExtraLife() {
+    this.lifes--;
+    this.lifesDiv.removeChild(this.lifesDiv.lastChild);
+    if (this.lifes === 0) {
+      this.gameOver();
+      return;
+    }
+  }
+
+  manageExtraCollision(extraType) {
+    switch (extraType) {
+      case Extra.types['LIFE']:
+        this.addExtraLife();
+        break;
+      case Extra.types['BULLET']:
+        this.removeExtraLife();
+        break;
+    }
   }
 }
 

@@ -22,6 +22,8 @@ class BrickWall extends THREE.Object3D {
     const brickHeight = 0.125;
 
     this.createBricks(worldWidth, scene, brickHeight, leftX, offsetY);
+
+    this.position.z = -1;
   }
 
   createBricks(worldWidth, scene, brickHeight, leftX, offsetY) {
