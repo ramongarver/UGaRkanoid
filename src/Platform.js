@@ -12,32 +12,27 @@ class Platform extends THREE.Object3D {
 
     this.width = 0.8;
     this.height = 0.1;
-    let geometryPlatform = new THREE.BoxBufferGeometry(
+    const geometryPlatform = new THREE.BoxBufferGeometry(
       this.width,
       this.height,
       0
     );
-    
-    let materialPlatform = this.loadTextureMaterial();
+
+    this.indexMaterial = 0;
+    const materialPlatform = Platform.materials[this.indexMaterial];
+
     this.platform = new THREE.Mesh(geometryPlatform, materialPlatform);
 
     this.add(this.platform);
     this.position.y = -1.8;
 
     this.arrowVelocity = 2;
+
+    this.timeEllapsed = 0;
   }
 
   restart() {
     this.position.x = 0;
-  }
-
-  loadTextureMaterial() {
-    const loader = new THREE.TextureLoader();
-    return new THREE.MeshPhongMaterial({
-      map: loader.load(
-        "../assets/BreakoutTileSetFree/PNG/50-Breakout-Tiles.png"
-      ),
-    });
   }
 
   mouseMoveHandler(event, cameraWidth) {
@@ -78,6 +73,12 @@ class Platform extends THREE.Object3D {
   }
 
   update() {
+    this.timeEllapsed += TheScene.deltaTime;
+    if (this.timeEllapsed > 0.1) {
+      this.indexMaterial = (this.indexMaterial + 1) % Platform.materials.length;
+      this.platform.material = Platform.materials[this.indexMaterial];
+      this.timeEllapsed = 0;
+    }
     if (this.scene.game.state === Game.PLAYING) {
       switch (this.scene.platformMovement) {
         case Direction.Left:
@@ -92,16 +93,21 @@ class Platform extends THREE.Object3D {
   }
 }
 
-
 const loader = new THREE.TextureLoader();
 
-Platform.materials = [ 
-  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/50-Breakout-Tiles.png")}),
-  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/51-Breakout-Tiles.png")}),
-  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/52-Breakout-Tiles.png")}),
-  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/54-Breakout-Tiles.png")}),
-  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/55-Breakout-Tiles.png")}),
-  new THREE.MeshPhongMaterial({map: loader.load("../assets/BreakoutTileSetFree/PNG/56-Breakout-Tiles.png")}) 
-]
+Platform.materials = [
+  new THREE.MeshPhongMaterial({
+    transparent: true,
+    map: loader.load("../assets/BreakoutTileSetFree/PNG/50-Breakout-Tiles.png"),
+  }),
+  new THREE.MeshPhongMaterial({
+    transparent: true,
+    map: loader.load("../assets/BreakoutTileSetFree/PNG/51-Breakout-Tiles.png"),
+  }),
+  new THREE.MeshPhongMaterial({
+    transparent: true,
+    map: loader.load("../assets/BreakoutTileSetFree/PNG/52-Breakout-Tiles.png"),
+  }),
+];
 
 export { Platform };

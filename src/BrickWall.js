@@ -2,6 +2,7 @@ import * as THREE from "../lib/three.module.js";
 import { Brick } from "./Brick.js";
 import { Levels } from "./Levels.js";
 import { BrickTypes } from "./BrickTypes.js";
+import { LevelGenerator } from "./LevelGenerator.js";
 
 class BrickWall extends THREE.Object3D {
   constructor(scene, level, offsetY) {
@@ -15,7 +16,8 @@ class BrickWall extends THREE.Object3D {
     const rightX = this.scene.cameraWidth / 2;
     const worldWidth = rightX - leftX;
 
-    this.level = Levels[level];
+    if (level != 99) this.level = Levels[level];
+    else this.level = new LevelGenerator(6, 13, 5, 12, 4).generateLevel();
 
     const brickHeight = 0.125;
 
@@ -27,7 +29,7 @@ class BrickWall extends THREE.Object3D {
       const brickWidth = worldWidth / row.length;
 
       for (const [indexCol, brickType] of row.entries()) {
-        if (brickType !== 'no') {
+        if (brickType !== "no") {
           const brick = new Brick(
             scene,
             brickWidth,

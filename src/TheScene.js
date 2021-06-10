@@ -38,8 +38,7 @@ class TheScene extends THREE.Scene {
 
     this.createCamera();
     this.createLights();
-    this.axis = new THREE.AxesHelper(25);
-    this.add(this.axis);
+    this.createBackground();
   }
 
   // It creates the camera and adds it to the graph
@@ -63,7 +62,21 @@ class TheScene extends THREE.Scene {
     this.add(this.ambientLight);
   }
 
+  // It creates the background and adds it to the graph
+  createBackground() {
+    // const geometryBackground = new THREE.BoxBufferGeometry(this.cameraWidth, this.cameraHeight, 0.1);
 
+    const loader = new THREE.TextureLoader();
+
+    this.background = loader.load("../assets/BreakoutTileSetFree/PNG/etsiit.png");
+
+    // this.background = new THREE.Mesh(geometryBackground, materialBackground);
+    // this.background.position.z = -1;
+
+    // this.add(this.background);
+
+
+  }
 
   mouseMoveHandler(event) {
     this.platform.mouseMoveHandler(event, this.cameraWidth);

@@ -5,21 +5,26 @@ import { touchHandler } from "./touch.handler.js";
 
 class Game {
   constructor(myCanvas) {
-    this.state = Game.INIT;
-    this.level = 2;
-    this.lifes = 3;
-    this.points = 0;
     this.startTime = THREE.Clock.start;
     this.canvas = myCanvas;
     this.lifesDiv = document.getElementById("lifes");
     this.pointsDiv = document.getElementById("points");
 
-    this.scene = new TheScene(this.canvas, this);
+    this.initAttributes();
 
     this.renderer = this.createRenderer(myCanvas);
 
     this.createLifes();
     this.createPoints();
+    this.createStartMenu();
+  }
+
+  initAttributes() {
+    this.state = Game.MENU;
+    this.level = 9;
+    this.lifes = 3;
+    this.points = 0;
+    this.scene = new TheScene(this.canvas, this);
   }
 
   createLifeImg() {
@@ -29,6 +34,7 @@ class Game {
   }
 
   createLifes() {
+    this.lifesDiv.innerText = "";
     for (let i = 0; i < this.lifes; i++) {
       this.lifesDiv.appendChild(this.createLifeImg());
     }
@@ -50,8 +56,7 @@ class Game {
   }
 
   createPoints() {
-    const pointsText = document.createTextNode(this.points);
-    this.pointsDiv.appendChild(pointsText);
+    this.pointsDiv.innerText = this.points.toString();
   }
 
   addPoints(points) {
@@ -59,15 +64,59 @@ class Game {
     this.pointsDiv.innerHTML = this.points;
   }
 
-  async startAgain() {
+  selectLevel(selectedLevelButton) {
+    this.level = +selectedLevelButton.id.slice("level-button-".length);
+    this.scene = new TheScene(this.canvas, this);
+    selectedLevelButton.classList.add("level-button-selected");
+    const levelsDiv = document.getElementById("levels");
+    for (const levelButton of levelsDiv.children) {
+      if (levelButton.id !== `level-button-${this.level}`)
+        levelButton.classList.remove("level-button-selected");
+      else levelButton.classList.add("level-button-selected");
+    }
+  }
+
+  createStartMenu() {
+    const levelsDiv = document.getElementById("levels");
+    levelsDiv.innerText = "";
+    for (let i = 0; i < Levels.length; i++) {
+      const levelButton = document.createElement("button");
+      levelButton.innerHTML = i;
+      levelButton.className =
+        i == this.level ? "level-button level-button-selected" : "level-button";
+      levelButton.id = `level-button-${i}`;
+      levelButton.onclick = () => this.selectLevel(levelButton);
+      levelsDiv.appendChild(levelButton);
+    }
+
+    const levelButton = document.createElement("button");
+    levelButton.innerHTML = "Aleatorio";
+    levelButton.className = "long-button";
+    levelButton.id = `level-button-99`;
+    levelButton.onclick = () => this.selectLevel(levelButton);
+    levelsDiv.appendChild(levelButton);
+
+    const startButton = document.getElementById("start-button");
+    startButton.onclick = () => this.startButtonClickHandler();
+    const startMenu = document.getElementById("modal-start");
+    startMenu.classList.remove("hidden");
+  }
+
+  startButtonClickHandler() {
+    const modalStart = document.getElementById("modal-start");
+    modalStart.classList.toggle("hidden");
+    this.state = Game.INIT;
+  }
+
+  startAgain() {
     this.state = Game.STOPPED;
     this.scene.restart();
   }
 
-  async checkVictory() {
+  checkVictory() {
     if (this.scene.brickWall.getBricksLeft() === 0) {
       this.scene.remove(this.scene.ball);
-      await new Promise((r) => setTimeout(() => this.startNextLevel(), 2000));
+      this.startNextLevel();
     }
   }
 
@@ -78,12 +127,20 @@ class Game {
     }
     this.level++;
     this.scene = new TheScene(this.canvas, this);
+    this.state = Game.INIT;
   }
 
-  finishGameVictory() {}
+  finishGameVictory() {
+    this.state = Game.GAME_OVER;
+    document.getElementById("modal-game-victory").classList.remove("hidden");
+    document.getElementById("total-points-game-victory").innerHTML =
+      this.points;
+  }
 
-  async gameOver() {
-    await new Promise((r) => setTimeout(() => this.startNextLevel(), 2000));
+  gameOver() {
+    this.state = Game.GAME_OVER;
+    document.getElementById("modal-game-over").classList.toggle("hidden");
+    document.getElementById("total-points-game-over").innerHTML = this.points;
   }
 
   update() {
@@ -113,18 +170,31 @@ class Game {
         this.scene.restart();
         this.state = Game.PLAYING;
         break;
+      default:
     }
+  }
+
+  restart() {
+    this.initAttributes();
+
+    this.createStartMenu();
+    this.createLifes();
+    this.createPoints();
+    const startMenu = document.getElementById("modal-start");
+    startMenu.classList.remove("hidden");
   }
 }
 
+Game.MENU = "MENU";
+Game.INIT = "INIT";
 Game.PLAYING = "PLAYING";
 Game.STOPPED = "STOPPED";
-Game.INIT = "INIT";
+Game.GAME_OVER = "GAME_OVER";
 
 // Main function
 $(function () {
   const paintArea = document.querySelector("#WebGL-output");
-  const game = new Game(paintArea);
+  let game = new Game(paintArea);
   const output = document.querySelector("canvas");
   // Se añaden los listener de la aplicación. En este caso, el que va a comprobar cuándo se modifica el tamaño de la ventana de la aplicación.
   window.addEventListener("resize", () => game.scene.windowResizeHandler());
@@ -147,10 +217,16 @@ $(function () {
     true
   );
 
+  const restartButtons = document.querySelectorAll(".restart-button");
+  restartButtons.forEach((button) => {
+    button.onclick = () => {
+      game.restart();
+      button.parentNode.parentNode.classList.add("hidden");
+    };
+  });
+
   // Que no se nos olvide, la primera visualización.
   game.update();
 });
-
-
 
 export { Game };

@@ -1,6 +1,5 @@
-const Levels = {
-  0: {
-    maximumHardness: 1,
+const Levels = [
+  {
     bricksTypes: [["no", "no", "no", "no", "no", "g1", "no", "no", "no", "no", "no"]],
     // bricksHardness: [
     //   ['d1', 'd1', 'd1', 'd1', 'd1', 'd1'],
@@ -14,8 +13,7 @@ const Levels = {
     // ]
   },
 
-  1: {
-    maximumHardness: 1,
+  {
     bricksTypes: [["l1", "no", "r1", "b1", "no", "g1", "no", "b1", "r1", "no", "l1"]],
     // bricksTypes: [
     //   ["d1", "d1", "d1", "d1", "d1", "d1", "d1", "d1"],
@@ -25,8 +23,7 @@ const Levels = {
     // ],
   },
 
-  2: {
-    maximumHardness: 2,
+  {
     bricksTypes: [["no", "no", "no", "y1", "r2", "g3", "r2", "y1", "no", "no", "no"]],
     // bricksTypes: [
     //   ["d1", "d1", "d1", "d1", "d1", "d1"],
@@ -35,8 +32,7 @@ const Levels = {
     // ],
   },
 
-  3: {
-    maximumHardness: 2,
+  {
     bricksTypes: [
       ["r2", "r2", "r2", "r2", "r2", "r2"],
       ["r2", "r2", "gf", "gf", "r2", "r2"],
@@ -44,8 +40,7 @@ const Levels = {
     ],
   },
 
-  4: {
-    maximumHardness: 3,
+  {
     bricksTypes: [
       ["r2", "no", "d1", "d1", "no", "r2"],
       ["d1", "r2", "s3", "s3", "r2", "d1"],
@@ -53,8 +48,7 @@ const Levels = {
     ],
   },
 
-  5: {
-    maximumHardness: 3,
+  {
     bricksTypes: [
       ["no", "no", "s3", "no", "no", "no", "no", "no", "s3", "no", "no"],
       ["no", "no", "s3", "no", "no", "no", "no", "no", "s3", "no", "no"],
@@ -75,8 +69,7 @@ const Levels = {
     ],
   },
 
-  6: {
-    maximumHardness: 1,
+  {
     bricksTypes: [
       ['no', 'y1', 'y1', 'y1', 'no', 'b1', 'b1', 'b1', 'no', 'y1', 'y1', 'y1', 'no'],
       ['no', 'p1', 'p1', 'p1', 'no', 'd1', 'd1', 'd1', 'no', 'p1', 'p1', 'p1', 'no'],
@@ -89,8 +82,7 @@ const Levels = {
     ],
   },
 
-  7: {
-    maximumHardness: 1,
+  {
     bricksTypes: [
       ['s1', 's1', 's1', 's1', 's1', 's1', 's1', 's1', 's1', 's1', 's1', 's1', 's1'],
       ['r1', 'r1', 'r1', 'r1', 'r1', 'r1', 'r1', 'r1', 'r1', 'r1', 'r1', 'r1', 'r1'],
@@ -101,8 +93,7 @@ const Levels = {
     ],
   },
 
-  8: {
-    maximumHardness: 1,
+  {
     bricksTypes: [
       ['no', 'no', 'no', 'y1', 'y1', 'y1', 'y1', 'no', 'no', 'no'],
       ['no', 'no', 'y1', 'y1', 'y1', 'y1', 'y1', 'y1', 'no', 'no'],
@@ -120,16 +111,16 @@ const Levels = {
     ],
   },
 
-  9: {
-    maximumHardness: 4,
-    bricksTypes: [
-      ['o4', 'o1', 'd1', 'o4', 'd3', 'p3', 'd2', 's4', 'd4', 'p1', 'p4', 'd1', 'y2'],
-      ['y1', 's2', 'r4', 'g1', 'g1', 'o2', 'd3', 'p1', 'b3', 'o3', 'y2', 'o1', 's3'],
-      ['g3', 'o3', 's3', 'o1', 'b3', 'r2', 'd1', 's2', 'd2', 'g4', 'b1', 'y4', 'b4'],
-      ['y4', 's4', 'p4', 'p1', 'g2', 'y4', 'r4', 'd4', 'd2', 'o2', 'g2', 'y1', 'g2'],
-    ],
+  {
+    bricksTypes: [["no", "no", "no", "no", "no", "g1", "no", "no", "no", "no", "no"]],
+    // bricksTypes: [
+    //   ['o4', 'o1', 'd1', 'o4', 'd3', 'p3', 'd2', 's4', 'd4', 'p1', 'p4', 'd1', 'y2'],
+    //   ['y1', 's2', 'r4', 'g1', 'g1', 'o2', 'd3', 'p1', 'b3', 'o3', 'y2', 'o1', 's3'],
+    //   ['g3', 'o3', 's3', 'o1', 'b3', 'r2', 'd1', 's2', 'd2', 'g4', 'b1', 'y4', 'b4'],
+    //   ['y4', 's4', 'p4', 'p1', 'g2', 'y4', 'r4', 'd4', 'd2', 'o2', 'g2', 'y1', 'g2'],
+    // ],
   }
-};
+];
 
 Object.freeze(Levels);
 

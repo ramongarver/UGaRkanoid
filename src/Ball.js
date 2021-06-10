@@ -66,11 +66,7 @@ class Ball extends THREE.Object3D {
       this.checkCollisionBox(platform);
 
     if (thereIsCollision) {
-      if (!collisionSideBorder)
-        this.velocityY =
-          this.position.y > platform.position.y
-            ? Math.abs(this.velocityY)
-            : -Math.abs(this.velocityY);
+      if (!collisionSideBorder) this.velocityY = Math.abs(this.velocityY);
       this.velocityX = (this.position.x - platform.position.x) * 2.5;
     }
   }

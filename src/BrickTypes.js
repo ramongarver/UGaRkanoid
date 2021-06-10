@@ -238,7 +238,7 @@ const BrickColors = {
   },
 
   'brown': {
-    points: 0,
+    points: 10,
     material: [
       new THREE.MeshLambertMaterial({
         map: loader.load(

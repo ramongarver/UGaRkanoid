@@ -4,60 +4,50 @@
     <head>
         <title>UGaRkanoid</title>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="../lib/jquery.js"></script>
         <script type="module" src="src/Game.js" defer></script>
-        <style>
-            html, body {
-                height: 100%;
-            }
-            body{
-                margin: 0;
-                overflow: hidden;
-                background-color: rgb(43, 43, 43);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            #game {
-                display: flex;
-                align-items: center;
-                box-shadow: 0 0 10px #000;
-            }
-            #info {
-                z-index: 100;
-                position: fixed;
-                top: 10px;
-                left: 10px;
-            }
-            #lifes {
-                display: flex;
-                height: 100%;
-                width: 2em;
-                padding: 0 0.5em;
-                flex-direction: column;
-                justify-content: center;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
         <div id="info"></div>
-        <!-- Div which will hold the Output -->
+        
+        <div id="modal-start" class="modal-container hidden">
+            <div id="start-menu" class="modal-content">
+                <h1 id="title">UGaRkanoid</h1>
+                <h3>¡Selecciona el nivel en el que quieras comenzar!</h3>
+                <div id="levels"></div>
+
+                <div id="start">
+                    <button id="start-button" class="primary-button">Start</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="modal-game-over" class="modal-container hidden">
+            <div id="game-over" class="modal-content">
+                <h2>¡Oh, qué pena! ¡Has perdido! ¡Otra vez será!</h2>
+                Puntos obtenidos: <span id="total-points-game-over"></span>
+                <button class="primary-button restart-button">Volver al menú</button>
+            </div>
+        </div>
+
+        <div id="modal-game-victory" class="modal-container hidden">
+            <div id="game-victory" class="modal-content">
+                <h2>¡Lo has logrado! ¡Eres un crack! ;)</h2>
+                Puntos obtenidos: <span id="total-points-game-victory"></span>
+                <button class="primary-button restart-button">Volver al menú</button>
+            </div>
+        </div>
+
         <div id="game">
+            <div id="left-bar">
+                <div id="points"></div>
+            </div>
+            <!-- Div which will hold the Output -->
             <div id="WebGL-output"></div>
             <div id="lifes"></div>
-            <div id="points"></div>
-            <div id="game-over"></div>
         </div>
-        <!-- <div id="modal">
-            <p>Juego</p>
-            <div class="niveles">
-                <button class="boton-nivel">Nivel 0</button>
-                <button class="boton-nivel">Nivel 1</button>
-                <button class="boton-nivel">Nivel 2</button>
-                <button class="boton-nivel">Nivel 3</button>
-            </div>
-        </div> -->
-
     </body>
 </html>

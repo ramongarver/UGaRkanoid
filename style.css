@@ -1,0 +1,131 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin: 0;
+  overflow: hidden;
+  background-color: rgb(43, 43, 43);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.modal-container {
+  visibility: visible;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 600ms, visibility 600ms;
+}
+
+.modal-content {
+  width: 60%;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.589);
+  color: yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#game {
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 10px #000;
+}
+#info {
+  z-index: 100;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+#lifes,
+#left-bar {
+  display: flex;
+  height: 100%;
+  width: 2em;
+  padding: 0 0.5em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0.6em;
+}
+
+#points {
+  color: white;
+  font-weight: bold;
+  width: fit-content;
+  margin: auto;
+}
+
+#levels {
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+button {
+  font-family: inherit;
+  border-style: none;
+  transition: background-color ease 0.3s;
+  cursor: pointer;
+  background-color: black;
+  color: yellow;
+}
+
+.level-button {
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 1.2em;
+  border-radius: 50%;
+}
+
+.long-button {
+  font-size: 1.2em;
+  padding: 5px;
+  border-radius: 1em;
+  padding: 5px 15px;
+}
+
+.level-button-selected {
+  background-color: yellow;
+  color: black;
+}
+
+.primary-button {
+  margin-top: 2em;
+  font-size: 1.5em;
+  font-weight: 700;
+  padding: 7px 20px;
+  border-radius: 1em;
+  background-color: yellow;
+  color: black;
+}
+
+.primary-button:hover {
+  background-color: white;
+}
+
+@media screen and (max-width: 768px) {
+  #game {
+    flex-direction: column;
+  }
+}

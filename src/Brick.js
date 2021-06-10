@@ -31,7 +31,6 @@ class Brick extends THREE.Object3D {
         this.scene.game.checkVictory();
         return;
       }
-      const hasBeenHit = this.hits > 0 ? 1 : 0;
       const maximumHardness = 4;
       this.brick.material = this.color.material[maximumHardness - this.hardness + this.hits];
     }
